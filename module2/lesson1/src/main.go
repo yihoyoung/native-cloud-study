@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/golang/glog"
 )
@@ -38,5 +39,14 @@ func healthz(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(statusCode)
 	io.WriteString(w, "ok")
 	// 3. Server 端记录访问日志包括客户端 IP，HTTP 返回码，输出到 server 端的标准输出
-	fmt.Println("request:", r.RequestURI, r.Method, statusCode)
+	fmt.Println("request:", getIPAddr(r), r.Method, statusCode)
+}
+
+func getIPAddr(r *http.Request) string {
+	// "x-real-ip", "x-forwarded-for"
+	ip := r.Header.Get("X-Real-IP")
+	if ip == "" {
+		ip = strings.Split(r.RemoteAddr, ":")[0]
+	}
+	return ip
 }
