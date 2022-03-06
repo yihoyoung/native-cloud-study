@@ -1,0 +1,22 @@
+kind: Service
+metadata:
+  labels:
+    name: httpserver
+    system/appName: httpserver-services
+    system/svcName: httpserver
+  name: httpserver
+  namespace: cicd
+spec:
+  ports:
+  - name: tcp-httpserver-0
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: tcp-httpserver-1
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  selector:
+    app: httpserver
+  sessionAffinity: None
+  type: ClusterIP

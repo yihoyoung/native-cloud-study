@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    description: "ingress"
+    displayName: load
+    httpSend: /
+    ingress-lb: ingress-sxctccdtdu
+    kubernetes.io/ingress.class: nginx-ingress-sxctccdtdu
+    lb-url: test.cc/
+    lb/displayname: test
+    nginx.ingress.kubernetes.io/enable-access-log: "false"
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "false"
+    nginx.ingress.kubernetes.io/load-balance: round_robin
+    nginx.ingress.kubernetes.io/proxy-body-size: ""
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/server-alias: ""
+  generation: 1
+  labels:
+    ingress-lb: ingress-sxctccdtdu
+  name: ingress-sxctccdtdusjhxqwntqrnhzesjbppa
+  namespace: testrsw
+spec:
+  rules:
+  - host: test.cc
+    http:
+      paths:
+      - backend:
+          service:
+            name: httpserver
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - ip: 172.22.96.88
